@@ -6,6 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import com.thomas.pice.picse.R;
 
+/**
+ * Created by Thomas on 13/04/2017.
+ *
+ * Handle toolbar in the activities.
+ * App activities must extends BaseActivity
+ */
 public abstract class BaseActivity extends AppCompatActivity {
     private Toolbar actionBarToolbar;
     @Override
