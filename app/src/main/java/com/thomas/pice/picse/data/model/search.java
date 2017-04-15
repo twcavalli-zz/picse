@@ -1,8 +1,11 @@
-package com.thomas.pice.picse.model;
+package com.thomas.pice.picse.data.model;
 
 import java.util.Date;
-
 import io.realm.RealmObject;
+
+/**
+ * Created by Thomas on 13/04/2017.
+ */
 
 public class search extends RealmObject {
     private String word;
@@ -14,5 +17,10 @@ public class search extends RealmObject {
 
     public void setWord(String word) {
         this.word = word;
+        updateDate();
+    }
+
+    public void updateDate() {
+        this.when = new Date();
     }
 }
