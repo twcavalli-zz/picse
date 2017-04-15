@@ -144,6 +144,7 @@ public class MainActivity extends BaseActivity {
     private void setupToolbar() {
         final android.support.v7.app.ActionBar ab = getActionBarToolbar();
         ab.setDisplayHomeAsUpEnabled(false);
+        ab.setTitle("");
     }
 
     @Override
