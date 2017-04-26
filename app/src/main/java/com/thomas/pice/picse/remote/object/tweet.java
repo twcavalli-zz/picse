@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
  * Created by Thomas on 14/04/2017.
  */
 
-public class tweet {
+public class Tweet {
     @SerializedName("text")
     private String text;
-    @SerializedName("entities")
-    private entities entities;
-    @SerializedName("user")
-    private  user user;
+    @SerializedName("Entities")
+    private Entities Entities;
+    @SerializedName("User")
+    private User user;
     @Override
     public String  toString(){
         return text;
@@ -23,16 +23,16 @@ public class tweet {
     public void setText(String text) {
         this.text = text;
     }
-    public com.thomas.pice.picse.remote.object.entities getEntities() {
-        return entities;
+    public Entities getEntities() {
+        return Entities;
     }
-    public void setEntities(com.thomas.pice.picse.remote.object.entities entities) {
-        this.entities = entities;
+    public void setEntities(Entities Entities) {
+        this.Entities = Entities;
     }
-    public com.thomas.pice.picse.remote.object.user getUser() {
+    public User getUser() {
         return user;
     }
-    public void setUser(com.thomas.pice.picse.remote.object.user user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

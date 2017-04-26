@@ -16,12 +16,12 @@ import io.realm.RealmResults;
 /**
  * Created by Thomas on 13/04/2017.
  */
-public class search_history_adapter extends RecyclerView.Adapter<search_history_adapter.myViewHolder> {
-    private RealmResults<search> mDataset;
+public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.myViewHolder> {
+    private RealmResults<Search> mDataset;
     private LayoutInflater inflater;
     private Context ctx;
 
-    public search_history_adapter(Context ctx, RealmResults myDataset) {
+    public SearchHistoryAdapter(Context ctx, RealmResults myDataset) {
         this.ctx = ctx;
         inflater = LayoutInflater.from(ctx);
         mDataset = myDataset;
@@ -38,8 +38,8 @@ public class search_history_adapter extends RecyclerView.Adapter<search_history_
     public void onBindViewHolder(myViewHolder viewHolder, int i) {
         viewHolder.word.setText(mDataset.get(i).getWord());
 
-        // When item clicked, return the word back to search activity
-        final search item = mDataset.get(i);
+        // When item clicked, return the word back to Search activity
+        final Search item = mDataset.get(i);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

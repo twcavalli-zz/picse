@@ -9,36 +9,36 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.thomas.pice.picse.R;
-import com.thomas.pice.picse.remote.object.media;
+import com.thomas.pice.picse.remote.object.Media;
 import java.util.ArrayList;
 
 /**
  * Created by Thomas on 14/04/2017.
  */
 
-public class card_adapter  extends RecyclerView.Adapter<card_adapter.myViewHolder> {
-    private ArrayList<media> mDataset;
+public class CardAdapter extends RecyclerView.Adapter<CardAdapter.myViewHolder> {
+    private ArrayList<Media> mDataset;
     private LayoutInflater inflater;
     private Context ctx;
 
     private int lastPosition = -1;
 
 
-    public card_adapter(Context ctx, ArrayList myDataset) {
+    public CardAdapter(Context ctx, ArrayList myDataset) {
         this.ctx = ctx;
         inflater = LayoutInflater.from(ctx);
         mDataset = myDataset;
     }
 
     @Override
-    public card_adapter.myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CardAdapter.myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.card_adapter, parent, false);
-        card_adapter.myViewHolder holder = new card_adapter.myViewHolder(view);
+        CardAdapter.myViewHolder holder = new CardAdapter.myViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(card_adapter.myViewHolder viewHolder, int i) {
+    public void onBindViewHolder(CardAdapter.myViewHolder viewHolder, int i) {
         try {
             viewHolder.person_name.setText("@"+mDataset.get(i).getPerson_name());
         } catch (Exception e) { }
@@ -75,7 +75,7 @@ public class card_adapter  extends RecyclerView.Adapter<card_adapter.myViewHolde
         }
     }
 
-    public void setCard(ArrayList<media> clmedias) {
+    public void setCard(ArrayList<Media> clmedias) {
         mDataset= clmedias;
         notifyDataSetChanged();
     }

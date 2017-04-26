@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Thomas on 14/04/2017.
  */
 
-public class user {
+public class User {
     @SerializedName("screen_name")
     private String screen_name;
 

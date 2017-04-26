@@ -18,10 +18,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.thomas.pice.picse.R;
-import com.thomas.pice.picse.data.dao.searchDao;
-import com.thomas.pice.picse.remote.manager.apiDataManager;
-import com.thomas.pice.picse.remote.object.media;
-import com.thomas.pice.picse.ui.adapter.card_adapter;
+import com.thomas.pice.picse.data.dao.SearchDao;
+import com.thomas.pice.picse.remote.manager.ApiDataManager;
+import com.thomas.pice.picse.remote.object.Media;
+import com.thomas.pice.picse.ui.adapter.CardAdapter;
 import java.util.ArrayList;
 import io.realm.Realm;
 import rx.Subscriber;
@@ -36,12 +36,12 @@ public class MainActivity extends BaseActivity {
     private EditText input_search;
     private TextInputLayout input_layout_search;
     private Realm realm;
-    private apiDataManager dataManager;
+    private ApiDataManager dataManager;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     ProgressBar pgb_loading;
-    ArrayList<media> searchData;
+    ArrayList<Media> searchData;
 
 
     @Override
@@ -65,14 +65,14 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState != null ){
             // Load data from saved instance
             searchData = savedInstanceState.getParcelableArrayList("search_data");
-            mAdapter = new card_adapter(MainActivity.this, searchData);
+            mAdapter = new CardAdapter(MainActivity.this, searchData);
             mRecyclerView.setAdapter(mAdapter);
         } else {
             searchData = new ArrayList();
         }
 
 
-        dataManager = new apiDataManager(MainActivity.this);
+        dataManager = new ApiDataManager(MainActivity.this);
         fab_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,12 +90,12 @@ public class MainActivity extends BaseActivity {
     }
 
     private void search() {
-        //Insert the search word on database
+        //Insert the Search word on database
         pgb_loading.setVisibility(View.VISIBLE);
         input_layout_search.setError(null);
 
         realm = Realm.getDefaultInstance();
-        searchDao dao = new searchDao(realm);
+        SearchDao dao = new SearchDao(realm);
         dao.insert(input_search.getText().toString());
         realm.close();
 
@@ -109,12 +109,12 @@ public class MainActivity extends BaseActivity {
         }
 
         dataManager.startSearch(input_search.getText().toString())
-                .subscribe(new Subscriber<media>() {
+                .subscribe(new Subscriber<Media>() {
                     @Override
                     public void onCompleted() {
                         // When finish load all data, put it into the recycler
                         pgb_loading.setVisibility(View.INVISIBLE);
-                        mAdapter = new card_adapter(MainActivity.this, searchData);
+                        mAdapter = new CardAdapter(MainActivity.this, searchData);
                         mRecyclerView.setAdapter(mAdapter);
                     }
                     @Override
@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity {
                         pgb_loading.setVisibility(View.INVISIBLE);
                     }
                     @Override
-                    public void onNext(media value) {
+                    public void onNext(Media value) {
                         // If valid data, add it to data list
                         if (value != null) {
                             searchData.add(value);
@@ -157,9 +157,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //Enable to open the activity to show the search history
+            //Enable to open the activity to show the Search history
             case R.id.action_search_history:
-                //This is because it is possible to search for used terms again
+                //This is because it is possible to Search for used terms again
                 startActivityForResult(new Intent(MainActivity.this, HistoryActivity.class),1);
                 return true;
             default:
@@ -167,7 +167,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    //When an item from the list is selected, the activity search fot it again
+    //When an item from the list is selected, the activity Search fot it again
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {

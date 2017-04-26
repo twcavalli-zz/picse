@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Thomas on 14/04/2017.
  */
 
-public class media implements Parcelable{
+public class Media implements Parcelable{
     @SerializedName("media_url")
     private String media_url;
     private String tweet_text;
@@ -32,7 +32,7 @@ public class media implements Parcelable{
         this.person_name = person_name;
     }
 
-    private media(Parcel in) {
+    private Media(Parcel in) {
         media_url = in.readString();
         tweet_text = in.readString();
         person_name = in.readString();
@@ -50,13 +50,13 @@ public class media implements Parcelable{
         dest.writeString(person_name);
     }
 
-    public static final Parcelable.Creator<media> CREATOR = new Parcelable.Creator<media>() {
-        public media createFromParcel(Parcel in) {
-            return new media(in);
+    public static final Parcelable.Creator<Media> CREATOR = new Parcelable.Creator<Media>() {
+        public Media createFromParcel(Parcel in) {
+            return new Media(in);
         }
 
-        public media[] newArray(int size) {
-            return new media[size];
+        public Media[] newArray(int size) {
+            return new Media[size];
         }
     };
 }

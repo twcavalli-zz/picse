@@ -8,13 +8,13 @@ import java.util.ArrayList;
  * Created by Thomas on 14/04/2017.
  */
 
-public class entities {
-    @SerializedName("media")
-    private ArrayList<media> medias;
-    public ArrayList<media> getMedias() {
-        return medias;
+public class Entities {
+    @SerializedName("Media")
+    private ArrayList<Media> Medias;
+    public ArrayList<Media> getMedias() {
+        return Medias;
     }
-    public void setMedias(ArrayList<media> medias) {
-        this.medias = medias;
+    public void setMedias(ArrayList<Media> Medias) {
+        this.Medias = Medias;
     }
 }

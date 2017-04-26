@@ -1,6 +1,6 @@
 package com.thomas.pice.picse.remote;
-import com.thomas.pice.picse.remote.object.oauth;
-import com.thomas.pice.picse.remote.object.tweetList;
+import com.thomas.pice.picse.remote.object.Oauth;
+import com.thomas.pice.picse.remote.object.TweetList;
 
 import java.util.Map;
 import retrofit2.http.Field;
@@ -15,15 +15,15 @@ import rx.Observable;
  * Created by Thomas on 14/04/2017.
  */
 
-public interface picseRemote {
+public interface PicseRemote {
 
     //Method to grt token
     @FormUrlEncoded
     @POST("oauth2/token")
-    Observable<oauth> refreshAccessToken(@Header("Authorization") String auth,
+    Observable<Oauth> refreshAccessToken(@Header("Authorization") String auth,
                                          @Field("grant_type") String grantType,
                                          @Header("Content-Type") String contentType);
     //Method to get searches
-    @GET("1.1/search/tweets.json")
-    Observable<tweetList> searchFor(@Header("Authorization") String auth, @QueryMap Map<String, String> options);
+    @GET("1.1/Search/tweets.json")
+    Observable<TweetList> searchFor(@Header("Authorization") String auth, @QueryMap Map<String, String> options);
 }

@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import com.thomas.pice.picse.R;
-import com.thomas.pice.picse.data.dao.searchDao;
-import com.thomas.pice.picse.ui.adapter.search_history_adapter;
+import com.thomas.pice.picse.data.dao.SearchDao;
+import com.thomas.pice.picse.ui.adapter.SearchHistoryAdapter;
 import io.realm.Realm;
 
 /**
@@ -42,9 +42,9 @@ public class HistoryActivity extends BaseActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // Start search local data manager
-        searchDao dao = new searchDao(realm);
-        mAdapter = new search_history_adapter(HistoryActivity.this, dao.getAllSearches());
+        // Start Search local data manager
+        SearchDao dao = new SearchDao(realm);
+        mAdapter = new SearchHistoryAdapter(HistoryActivity.this, dao.getAllSearches());
 
         // Manage data display
         if (mAdapter.getItemCount() > 0) {

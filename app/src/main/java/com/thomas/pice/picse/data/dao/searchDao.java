@@ -10,25 +10,25 @@ import com.thomas.pice.picse.data.model.*;
  * Created by Thomas on 13/04/2017.
  */
 
-public class searchDao {
+public class SearchDao {
     Realm realm;
-    public searchDao(Realm realm) {
+    public SearchDao(Realm realm) {
         this.realm = realm;
     }
-    // Return all data from search table
-    public RealmResults<search> getAllSearches() {
-        return realm.where(search.class).findAllSorted("when", Sort.DESCENDING);
+    // Return all data from Search table
+    public RealmResults<Search> getAllSearches() {
+        return realm.where(Search.class).findAllSorted("when", Sort.DESCENDING);
     }
 
-    // Insert word or update datetime when user
+    // Insert word or update datetime when User
     public boolean insert(String word){
-        search item = realm.where(search.class).equalTo("word",word, Case.INSENSITIVE).findFirst();
+        Search item = realm.where(Search.class).equalTo("word",word, Case.INSENSITIVE).findFirst();
         try {
             realm.beginTransaction();
             if (item != null) {
                 item.updateDate();
             } else {
-                item = new search();
+                item = new Search();
                 item.setWord(word);
                 realm.copyToRealm(item);
             }

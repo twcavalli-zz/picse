@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Thomas on 14/04/2017.
  */
 
-public class oauth {
+public class Oauth {
     @SerializedName("token_type")
     private String token_type;
     @SerializedName("access_token")

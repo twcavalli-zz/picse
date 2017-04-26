@@ -6,7 +6,7 @@ import android.util.Base64;
  * Created by Thomas on 14/04/2017.
  */
 
-public class secrets {
+public class Secrets {
     private String ENDPOINT = "https://api.twitter.com/";
     private String CONSUMER_KEY = "hdOYGwHuKWqwF5lp2Uqetocxs";
     private String CONSUMER_SECRET = "47yLvxvdCdsvJPzpAJAK8gXWip6LjThNQypnvYE4cb1QzoPixo";

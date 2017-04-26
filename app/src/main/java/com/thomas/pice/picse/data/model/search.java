@@ -7,7 +7,7 @@ import io.realm.RealmObject;
  * Created by Thomas on 13/04/2017.
  */
 
-public class search extends RealmObject {
+public class Search extends RealmObject {
     private String word;
     private Date when;
 

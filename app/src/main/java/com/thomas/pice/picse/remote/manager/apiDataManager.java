@@ -1,8 +1,8 @@
 package com.thomas.pice.picse.remote.manager;
 
 import android.content.Context;
-import com.thomas.pice.picse.remote.picseRemote;
-import com.thomas.pice.picse.remote.retrofitHelper;
+import com.thomas.pice.picse.remote.PicseRemote;
+import com.thomas.pice.picse.remote.RetrofitHelper;
 import com.thomas.pice.picse.remote.object.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,35 +18,35 @@ import rx.schedulers.Schedulers;
  * Manage request to oAuth and Twitter API
  */
 
-public class apiDataManager {
+public class ApiDataManager {
     private final Context context;
-    private final picseRemote remote;
-    private oauth apiOauth;
+    private final PicseRemote remote;
+    private Oauth apiOauth;
 
-    // Load remote and secrets info for get the app token from Twitter oAuth APL
+    // Load remote and Secrets info for get the app token from Twitter oAuth APL
     // To get the token, use APP key and secret
-    public apiDataManager(Context context) {
+    public ApiDataManager(Context context) {
         this.context = context;
-        remote = retrofitHelper.newPicseRemote();
-        secrets secret = new secrets();
+        remote = RetrofitHelper.newPicseRemote();
+        Secrets secret = new Secrets();
         remote.refreshAccessToken(secret.getENCODED_BEARER(), secret.getGRANT_TYPE(), secret.getCONTENT_TYPE())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<oauth>() {
+                .subscribe(new Subscriber<Oauth>() {
                     @Override
                     public void onCompleted() { }
                     @Override
                     public void onError(Throwable e) { }
                     @Override
-                    public void onNext(oauth value) {
+                    public void onNext(Oauth value) {
                         apiOauth = value;
                     }
                 });
     }
 
-    // Calls Twitter search API.
+    // Calls Twitter Search API.
     // Important: First need to get the token
-    public Observable<media> startSearch(String word) {
+    public Observable<Media> startSearch(String word) {
         // Filters will be used on GET request
         Map<String, String> data = new HashMap<>();
         data.put("q", word);
@@ -54,23 +54,23 @@ public class apiDataManager {
         data.put("result_type", "mixed");
         data.put("count", "50");
 
-        // Get Twitter search API response, read all the tweets and get all the images from it.
+        // Get Twitter Search API response, read all the tweets and get all the images from it.
         return remote.searchFor("Bearer " + apiOauth.getAccess_token(), data)
                .subscribeOn(Schedulers.newThread())
                .observeOn(AndroidSchedulers.mainThread())
-               .concatMap(new Func1<tweetList, Observable<tweet>>() {
+               .concatMap(new Func1<TweetList, Observable<Tweet>>() {
                    @Override
-                   public Observable<tweet> call(tweetList tweetList) {
-                       return Observable.from(tweetList.getTweets());
+                   public Observable<Tweet> call(TweetList TweetList) {
+                       return Observable.from(TweetList.getTweets());
                    }
-               }).map(new Func1<tweet, media>() {
+               }).map(new Func1<Tweet, Media>() {
                     @Override
-                    public media call(tweet tweet) {
+                    public Media call(Tweet Tweet) {
                         try {
-                            media itemMedia = tweet.getEntities().getMedias().get(0);
+                            Media itemMedia = Tweet.getEntities().getMedias().get(0);
                             if (itemMedia.getMedia_url() != null) {
-                                itemMedia.setTweet_text(tweet.getText());
-                                itemMedia.setPerson_name(tweet.getUser().getScreen_name());
+                                itemMedia.setTweet_text(Tweet.getText());
+                                itemMedia.setPerson_name(Tweet.getUser().getScreen_name());
                                 return itemMedia;
                             }
                         } catch (Exception e) { }
